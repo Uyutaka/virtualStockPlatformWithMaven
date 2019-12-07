@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 
 <html>
@@ -30,7 +31,7 @@
 				<div class="card-body justify-content-center">
 					<form:form action="stockView" modelAttribute="userSymbolCheck" method="POST">
 						<form:hidden path="userId" />
-						<form:select class="select_close" path="stockName" items="${stocks}" />
+						<form:select id="mainselection" path="stockName" items="${stocks}" />
 						<br><br>
 						<input class="btn btn-dark btn-lg btn-block"" type="submit" value="Check" />
 					</form:form>
