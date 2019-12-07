@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.virtualStockPlatform.api.Api;
+import com.virtualStockPlatform.entity.Login;
 import com.virtualStockPlatform.entity.Pair;
 import com.virtualStockPlatform.entity.Price;
 import com.virtualStockPlatform.entity.Property;
@@ -38,6 +39,73 @@ public class UserController {
 	// need to inject user service
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("/profile")
+	public String showProfile(Model theModel) {
+		// get users from the service
+		List<User> theUsers = userService.getUsers();
+		// TODO temporally use the user of index 0
+		// Please change it to the current user.
+		User tmpUser = theUsers.get(0);
+		List<Property> properties = userService.getProperties(1);
+		
+		// add the user to the model
+		theModel.addAttribute("user", tmpUser);
+		theModel.addAttribute("properties", properties);
+		return "user-profile";
+	}
+	
+	@GetMapping("/toSignup")
+	public String toSignup(Model theModel) {
+		// create new object
+		User user = new User();
+		user.setBalance(100000.0);
+		
+		// store it
+		userService.saveUser(user);
+		
+		// add attribute
+		theModel.addAttribute("user", user);
+		return "signup-form";
+	}
+	
+	@PostMapping("/signup")
+	public String signup(Model theModel, @ModelAttribute("user") User theUser) {
+		// save the user into database
+		userService.saveUser(theUser);
+		
+		// return profile
+		int id = theUser.getId();
+		List<Property> properties = userService.getProperties(id);
+		
+		// add the user to the model
+		theModel.addAttribute("user", theUser);
+		theModel.addAttribute("properties", properties);
+		
+		return "user-profile";
+	}
+	
+	@PostMapping("/login")
+	public String login(Model theModel, @ModelAttribute("login") Login login) {
+		// validate the password
+		String email = login.getEmail();
+		User user = userService.getUserByEmail(email);
+		
+		// error username or password.
+		if (user == null) return "log-in";
+		if (!user.getPassword().equals(login.getPassword())) return "log-in";
+		
+		// user information is correct.
+		// return profile
+		int id = user.getId();
+		List<Property> properties = userService.getProperties(id);
+		
+		// add the user to the model
+		theModel.addAttribute("user", user);
+		theModel.addAttribute("properties", properties);
+		
+		return "user-profile";
+	}
 
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
@@ -351,22 +419,6 @@ public class UserController {
 		double price = api.getPrice(companySymbol);
 		System.out.print("Open Price " + price);
 		return "test-json";
-	}
-
-	@GetMapping("/profile")
-	public String showProfile(Model theModel) {
-		// get users from the service
-		List<User> theUsers = userService.getUsers();
-		// TODO temporally use the user of index 0
-		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(1);
-		System.out.println("afasdfasdfs" + properties);
-		
-		// add the user to the model
-		theModel.addAttribute("user", tmpUser);
-		theModel.addAttribute("properties", properties);
-		return "user-profile";
 	}
 
 	// Test get list

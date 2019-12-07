@@ -89,4 +89,10 @@ public class UserServiceImpl implements UserService {
 	public void deleteProperty(int id) {
 		userDAO.deleteProperty(id);	
 	}
+
+	@Override
+	@Transactional
+	public User getUserByEmail(String email) {
+		return userDAO.getUserByEmail(email);
+	}
 }

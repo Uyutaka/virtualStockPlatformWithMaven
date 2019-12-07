@@ -11,6 +11,8 @@ public interface UserDAO {
 	public void saveUser(User theUser);
 
 	public User getUser(int theId);
+	
+	public User getUserByEmail(String email);
 
 	public void deleteUser(int theId);
 	

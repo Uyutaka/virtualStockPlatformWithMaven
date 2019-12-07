@@ -50,13 +50,7 @@
 						<h4>Password</h4>
 						<input type="password" name="Password" placeholder="Enter your password" path = "password" style="width: 260px">
 						</div>
-				
-						<div class="confirm-password">
-						<h4>Confirm Password</h4>
-						<input type="password" name="RePassword" placeholder="Confirm your password" path = "repassword"  style="width: 260px">
-						</div>
-						<br>
-						
+		
 						<div class="confirm-btn">
 						<button type="submit" class="btn btn-success" id = "CreationButton" style="width: 260px">Create</button>
 						</div>
