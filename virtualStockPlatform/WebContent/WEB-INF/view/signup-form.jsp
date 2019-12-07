@@ -27,6 +27,7 @@
 						Account Creation
 					</h2>
 					</div>
+					<br>
 					<form:form action="signup" modelAttribute="user" method="POST">
 					<!-- need to associate this data with user id -->
 					<form:hidden path="id" />
@@ -51,13 +52,10 @@
 						<h4>Password</h4>
 						<form:input type="password" name="Password" placeholder="Enter your password" path = "password" style="width: 260px"/>
 						</div>
-		
-						<div class="confirm-btn">
-						<input type="submit" value="Sign Up" class="save" />
-						
-						</div>
 						<br>
-						
+						<input type="submit" value="Sign Up" class="btn btn-success" />
+						<br>
+						<br>
 						<div class="signin">
 						Already have an account?
 						<a href="${pageContext.request.contextPath}/user/login">Sign In</a>

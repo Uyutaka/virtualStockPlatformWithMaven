@@ -17,17 +17,16 @@
 </head>
 
 <body>
-	<div id="wrapper">
-		<div id="header">
-			<h2>User profile platform</h2>
-		</div>
-		
 		<c:url var="rank" value="/user/rank">
 			<c:param name="userId" value="${user.id}" />
 		</c:url>
-		
-		<a href='${rank}'>See the Rank Page of All Users!</a>
-
+		<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">User Profile platform</font></h2>
+	      <a  href='${rank}' style="color: white">See the Rank Page of All Users!</a>
+	    </nav>
+	    <br><br>
+	<div id="wrapper">
 		<div id="container">
 			<div id="content">
 
@@ -49,8 +48,7 @@
 							<td>${user.firstName}</td>
 							<td>${user.lastName}</td>
 							<td>${user.email}</td>
-							<td><fmt:formatNumber value="${balance}" type="currency" />
-								</p></td>
+							<td><fmt:formatNumber value="${balance}" type="currency" /></td>
 						</tr>
 					</thead>
 				</table>
