@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <html>
@@ -24,30 +25,26 @@
 		<div id="header">
 			<div align="center" id="container">
 				<div id="content">
-					<form:form action="checkUser" modelAttribute="user" method="POST">
+					<form:form action="toLogin" modelAttribute="login" method="POST">
 					<div class="card text-white mb-3" style="max-width: 30rem;"">
-					      <div class="card-body justify-content-center">
-					        <form class="form-login text-center">
-					
+					      <div class="card-body justify-content-center">	
 					          <h3 class="sub-header">Please Login</h3>
 					        </br>
 					          <div class="form-group">
-					            <input class="input-box" id="UseremailInput" type="email" style="border-radius: 8px;"
-					            	name="email" placeholder="Enter your email" path="email">
+					            <form:input class="input-box" id="UseremailInput" type="email" style="border-radius: 8px;"
+					            	placeholder="Enter your email" path="email"/>
 					          </div>
 					          <div class="form-group">
-					            <input type="password" id="PasswordInput" name="password" style="border-radius: 8px;"
-					            	placeholder="Enter your password" path="password">
+					            <form:input type="password" id="PasswordInput" name="password" style="border-radius: 8px;"
+					            	placeholder="Enter your password" path="password"/>
 					          </div>
 					          <br>
-					          <input type="submit" class="btn btn-success" >Login</button>
+					          <input type="submit" class="btn btn-success" value="Log in">
 					
 					          <br><br>
 					
 					          <h5 class="sub-header">Don't have an account?</h5>
-					          	<<a href="${pageContext.request.contextPath}/signup">Click here</a>>
-					
-					        </form>
+					          	<a href="${pageContext.request.contextPath}/user/toSignup">Click here</a>
 					  </form:form>
 					      </div>
 					 </div>

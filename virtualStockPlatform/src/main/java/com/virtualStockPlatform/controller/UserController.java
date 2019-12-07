@@ -40,14 +40,24 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@GetMapping("/login")
+	public String login(Model theModel) {
+		// create new objects
+		Login login = new Login();
+		
+		// add attribute
+		theModel.addAttribute("login", login);
+		return "log-in";
+	}
+	
 	@GetMapping("/profile")
 	public String showProfile(Model theModel) {
 		// get users from the service
 		List<User> theUsers = userService.getUsers();
 		// TODO temporally use the user of index 0
 		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(1);
+		User tmpUser = theUsers.get(1);
+		List<Property> properties = userService.getProperties(2);
 		
 		// add the user to the model
 		theModel.addAttribute("user", tmpUser);
@@ -57,7 +67,7 @@ public class UserController {
 	
 	@GetMapping("/toSignup")
 	public String toSignup(Model theModel) {
-		// create new object
+		// create new objects
 		User user = new User();
 		user.setBalance(100000.0);
 		
@@ -85,8 +95,8 @@ public class UserController {
 		return "user-profile";
 	}
 	
-	@PostMapping("/login")
-	public String login(Model theModel, @ModelAttribute("login") Login login) {
+	@PostMapping("/toLogin")
+	public String toLogin(Model theModel, @ModelAttribute("login") Login login) {
 		// validate the password
 		String email = login.getEmail();
 		User user = userService.getUserByEmail(email);
@@ -315,15 +325,12 @@ public class UserController {
 			property.setNumStocks(property.getNumStocks() - numberToSell);
 			userService.saveProperty(property);
 		}
-		// get users from the service
-		List<User> theUsers = userService.getUsers();
-		// TODO temporally use the user of index 0
-		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(1);
+		
+		// get properties
+		List<Property> properties = userService.getProperties(userId);
 		
 		// add the user to the model
-		theModel.addAttribute("user", tmpUser);
+		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("properties", properties);
 		return "user-profile";
 	}
@@ -356,12 +363,11 @@ public class UserController {
 		// get users from the service
 		List<User> theUsers = userService.getUsers();
 		
-		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(1);
+		// get properties
+		List<Property> properties = userService.getProperties(userId);
 		
 		// add the user to the model
-		theModel.addAttribute("user", tmpUser);
+		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("properties", properties);
 		return "user-profile";
 	}
@@ -410,32 +416,6 @@ public class UserController {
 		return "users-rank";
 	}
 	
-	
-	
-	@GetMapping("/test")
-	public String test() {
-		Api api = new Api();
-		String companySymbol = "MSFT";
-		double price = api.getPrice(companySymbol);
-		System.out.print("Open Price " + price);
-		return "test-json";
-	}
-
-	// Test get list
-	@GetMapping("/test1")
-	public String listPropertiess(Model theModel) {
-		List<Property> res = userService.getProperties(1);
-		return "test-json";
-	}
-
-	// Test get list
-	@GetMapping("/test2")
-	public String listSumOfStocks(Model theModel) {
-		List<Property> res = userService.getProperties(1);
-		userService.getSumOfStocks(res);
-		return "test-json";
-	}
-	
 	private Stock getStockByName(String name) {
 		String text = "";
 		RestTemplate restTemplate = new RestTemplate();
@@ -454,7 +434,7 @@ public class UserController {
 			// JSON string to Java object
 			stock = mapper.readValue(text, Stock.class);
 		} catch (IOException e) {
-			System.out.println("Test failed.");
+			System.out.println("Failed.");
 			e.printStackTrace();
 		}
 		return stock;

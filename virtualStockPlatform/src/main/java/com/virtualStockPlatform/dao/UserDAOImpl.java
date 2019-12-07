@@ -205,7 +205,7 @@ public class UserDAOImpl implements UserDAO{
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// create a query
-		Query<User> theQuery = currentSession.createQuery("from User where email=:target and stockName=:Name", User.class);
+		Query<User> theQuery = currentSession.createQuery("from User where email=:target", User.class);
 		theQuery.setParameter("target", email);
 		// execute query and get result list
 		User user = theQuery.uniqueResult();
