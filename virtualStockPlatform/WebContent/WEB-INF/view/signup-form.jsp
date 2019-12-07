@@ -27,38 +27,40 @@
 						Account Creation
 					</h2>
 					</div>
-					<form:form action="saveUser" modelAttribute="user" method="POST">
+					<form:form action="signup" modelAttribute="user" method="POST">
 					<!-- need to associate this data with user id -->
 					<form:hidden path="id" />
+					<form:hidden path="balance" />
 			
 						<div class="firstname">
 						<h4>Firstname</h4>
-						<input type="firstname" name="Firstname" placeholder="Enter your firstname" path="firstName" style="width: 260px">
+						<form:input type="firstname" name="Firstname" placeholder="Enter your firstname" path="firstName" style="width: 260px"/>
 						</div>
 						
 						<div class="lastname">
 						<h4>Lastname</h4>
-						<input type="lastname" name="Lastname" placeholder="Enter your lastname" path="lastName" style="width: 260px">
+						<form:input type="lastname" name="Lastname" placeholder="Enter your lastname" path="lastName" style="width: 260px"/>
 						</div>
 	
 						<div class="email">
 						<h4>Email</h4>
-						<input type="email" name="Email" placeholder="Enter your email" path="email" style="width: 260px">
+						<form:input type="email" name="Email" placeholder="Enter your email" path="email" style="width: 260px"/>
 						</div>
 	
 						<div class="password">
 						<h4>Password</h4>
-						<input type="password" name="Password" placeholder="Enter your password" path = "password" style="width: 260px">
+						<form:input type="password" name="Password" placeholder="Enter your password" path = "password" style="width: 260px"/>
 						</div>
 		
 						<div class="confirm-btn">
-						<button type="submit" class="btn btn-success" id = "CreationButton" style="width: 260px">Create</button>
+						<input type="submit" value="Sign Up" class="save" />
+						
 						</div>
 						<br>
 						
 						<div class="signin">
 						Already have an account?
-						<a href="${pageContext.request.contextPath}/login">Sing in</a>
+						<a href="${pageContext.request.contextPath}/user/login">Sign In</a>
 						</div>
 						<br>
 					    
