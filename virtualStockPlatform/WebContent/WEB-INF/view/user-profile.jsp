@@ -77,7 +77,8 @@
 
 				<!-- display the update link -->
 				<input type="button" value="Edit"
-					onclick="window.location.href='${updateLink}'" class="btn btn-dark" />
+					onclick="window.location.href='${updateLink}'" class="btn btn-dark "
+					style="margin-right:30px;" />
 				<c:url var="checkLink" value="/user/symbolCheck">
 					<c:param name="userId" value="${user.id}" />
 				</c:url>

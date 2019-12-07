@@ -24,34 +24,31 @@
 		<div id="header">
 			<div align="center" id="container">
 				<div id="content">
-					<div class="card text-white mb-3" style="max-width: 30rem;">
+					<form:form action="checkUser" modelAttribute="user" method="POST">
+					<div class="card text-white mb-3" style="max-width: 30rem;"">
 					      <div class="card-body justify-content-center">
 					        <form class="form-login text-center">
 					
 					          <h3 class="sub-header">Please Login</h3>
 					        </br>
 					          <div class="form-group">
-					            <input class="input-box" id="UsernameInput" type="email" style="border-radius: 8px;"
-					            	name="email" placeholder="Enter your email">
+					            <input class="input-box" id="UseremailInput" type="email" style="border-radius: 8px;"
+					            	name="email" placeholder="Enter your email" path="email">
 					          </div>
 					          <div class="form-group">
 					            <input type="password" id="PasswordInput" name="password" style="border-radius: 8px;"
-					            	placeholder="Enter your password">
+					            	placeholder="Enter your password" path="password">
 					          </div>
 					          <br>
-					          <button class="btn btn-success" id="LoginButton">Login</button>
+					          <input type="submit" class="btn btn-success" >Login</button>
 					
 					          <br><br>
 					
 					          <h5 class="sub-header">Don't have an account?</h5>
-					          	<input type="button" value="Click here"
-									onclick="window.location.href='showFormForAdd'; return false;"
-									class="add-button btn btn-primary" />
+					          	<<a href="${pageContext.request.contextPath}/signup">Click here</a>>
 					
 					        </form>
-					
-					
-					        
+					  </form:form>
 					      </div>
 					 </div>
 				</div>
