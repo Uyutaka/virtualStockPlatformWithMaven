@@ -247,7 +247,7 @@ public class UserController {
 		// TODO temporally use the user of index 0
 		// Please change it to the current user.
 		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(0);
+		List<Property> properties = userService.getProperties(1);
 		
 		// add the user to the model
 		theModel.addAttribute("user", tmpUser);
@@ -285,7 +285,7 @@ public class UserController {
 		
 		// Please change it to the current user.
 		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(0);
+		List<Property> properties = userService.getProperties(1);
 		
 		// add the user to the model
 		theModel.addAttribute("user", tmpUser);
@@ -355,7 +355,8 @@ public class UserController {
 		// TODO temporally use the user of index 0
 		// Please change it to the current user.
 		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(0);
+		List<Property> properties = userService.getProperties(1);
+		System.out.println("afasdfasdfs" + properties);
 		
 		// add the user to the model
 		theModel.addAttribute("user", tmpUser);
