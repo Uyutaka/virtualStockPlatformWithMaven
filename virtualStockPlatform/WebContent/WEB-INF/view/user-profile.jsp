@@ -33,7 +33,7 @@
 					</thead>
 					<c:url var="updateLink" value="/user/showFormForUpdate">
 							<c:param name="userId" value="${user.id}" />
-						</c:url>
+					</c:url>
 						<c:set var = "balance" value="${user.balance}" />
 						<thead class="thead-light">
 						<tr>
@@ -44,7 +44,32 @@
          							type = "currency"/></p></td>
 						</tr>
 						</thead>
-				</table>	
+				</table>
+				
+				<div class="card">
+					<table class=table>
+						<thead class="thead-dark">
+						<tr>
+							<th>#</th>
+							<th>Stock Name</th>
+							<th>Quality</th>
+						</tr>
+					</thead>
+					
+					<thead class="thead-light">
+					<!-- loop over and print our users -->
+					<c:forEach var="property" items="${properties}" varStatus="status">
+					<tr>
+							<td>${status.index + 1}</td>
+							<td>${property.stockName}</td>
+							<td>${property.numStocks}</td>					
+					</tr>
+					</c:forEach>
+					</thead>
+					</table>
+				</div>
+				
+					
 						<!-- display the update link -->
 						<input type="button" value="Edit"
 					onclick="window.location.href='${updateLink}'"
