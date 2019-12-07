@@ -18,20 +18,21 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
 </head>
 <body >
-
-	<div id="wrapper">
-		<div id="header">
-			<h2>Symbol Check</h2>
-		</div>
-
+		<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">Stock check platform</font></h2>
+	    </a>
+	    </nav>
+	    <br><br><br><br>
 		<div id="container">
 			<div id="content">
 				<div class="card text-white mb-3">
 				<div class="card-body justify-content-center">
 					<form:form action="stockView" modelAttribute="userSymbolCheck" method="POST">
 						<form:hidden path="userId" />
-						<form:select class="selectpicker show-tick" path="stockName" items="${stocks}" />
-						<input type="submit" value="Check" />
+						<form:select class="select_close" path="stockName" items="${stocks}" />
+						<br><br>
+						<input class="btn btn-dark btn-lg btn-block"" type="submit" value="Check" />
 					</form:form>
 				</div>
 				</div>
