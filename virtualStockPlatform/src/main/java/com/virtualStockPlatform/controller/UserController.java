@@ -71,9 +71,6 @@ public class UserController {
 		User user = new User();
 		user.setBalance(100000.0);
 		
-		// store it
-		userService.saveUser(user);
-		
 		// add attribute
 		theModel.addAttribute("user", user);
 		return "signup-form";
@@ -298,7 +295,6 @@ public class UserController {
 	
 	@PostMapping("/sell")
 	public String sellStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {
-		System.out.println(transaction);
 		double price = transaction.getPrice();
 		int numberToSell = transaction.getNumToBuyOrSell();
 		int userId = transaction.getUserId();
@@ -337,7 +333,6 @@ public class UserController {
 	
 	@PostMapping("/buy")
 	public String buyStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {
-		System.out.println(transaction);
 		double price = transaction.getPrice();
 		int numberToBuy = transaction.getNumToBuyOrSell();
 		int userId = transaction.getUserId();
