@@ -115,6 +115,11 @@ public class UserController {
         stocks.put("AMZN", "AMZN");
         stocks.put("GOOG", "GOOG");
         stocks.put("NVDA", "NVDA");
+        stocks.put("MSFT", "MSFT");
+        stocks.put("AAPL", "AAPL");
+        stocks.put("AMD", "AMD");
+        stocks.put("TSLA", "TSLA");
+        stocks.put("DOYU", "DOYU");
 		// set user as a model attribute to pre-populate the form
 		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("stocks", stocks);
@@ -383,7 +388,7 @@ public class UserController {
 		String text = "";
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(
-				String.format("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=%s&interval=1min&apikey=ACPN4KEH4052XAQ6", name),
+				String.format("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=%s&interval=1min&apikey=PDYIZGJCK1M1NQIN", name),
 				String.class);
 
 		if (HttpStatus.OK == response.getStatusCode()) {

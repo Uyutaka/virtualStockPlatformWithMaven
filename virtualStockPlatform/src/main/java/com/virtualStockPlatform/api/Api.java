@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.virtualStockPlatform.entity.Stock;
 
 public class Api {
-	private String[] SYMBOLS = {"GOOG", "AMZN", "NVDA"};
+	private String[] SYMBOLS = {"GOOG", "AMZN", "NVDA","MSFT","AAPL","AMD","TSLA","DOYU"};
 	
 	// Return symbol's stock price
 	// Return 0 when an error happens
@@ -49,7 +49,7 @@ public class Api {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate
 				.getForEntity("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + companySymbol
-						+ "&interval=1min&apikey=ACPN4KEH4052XAQ6", String.class);
+						+ "&interval=1min&apikey=PDYIZGJCK1M1NQIN", String.class);
 
 		if (HttpStatus.OK == response.getStatusCode()) {
 			text = response.getBody().toString();
