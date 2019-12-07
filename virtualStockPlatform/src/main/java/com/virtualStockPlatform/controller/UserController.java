@@ -65,6 +65,19 @@ public class UserController {
 		return "user-profile";
 	}
 	
+	@GetMapping("/profileWithID")
+	public String showProfile(Model theModel, @RequestParam("userId") int theId) {
+		// get users from the service
+		User user = userService.getUser(theId);
+		List<Property> properties = userService.getProperties(theId);
+		
+		// add the user to the model
+		theModel.addAttribute("user", user);
+		theModel.addAttribute("properties", properties);
+
+		return "user-profile";
+	}
+	
 	@GetMapping("/toSignup")
 	public String toSignup(Model theModel) {
 		// create new objects
@@ -368,7 +381,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/rank")
-	public String userRanks(Model theModel) {
+	public String userRanks(Model theModel, @RequestParam("userId") int theId) {
 		// get users from the service
 		List<User> theUsers = userService.getUsers();
 
@@ -408,6 +421,7 @@ public class UserController {
 
 		// add the users to the model
 		theModel.addAttribute("allProperties", orderedUsers);
+		theModel.addAttribute("id", theId);
 		return "users-rank";
 	}
 	

@@ -40,6 +40,11 @@
 						</tr>
 					</c:forEach>
 				</table>
+				<c:url var="profileWithId" value="/user/profileWithID">
+					<c:param name="userId" value="${id}" />
+				</c:url>
+				
+				<a href="${profileWithId}">Back to profile</a>
 			</div>
 		</div>
 	</div>

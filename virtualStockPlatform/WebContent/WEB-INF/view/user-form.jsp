@@ -59,7 +59,7 @@
 
 		<div style=""></div>
 		<p>
-			<c:url var="profile" value="/user/profile">
+			<c:url var="profileWithId" value="/user/profile">
 				<c:param name="userId" value="${tempUser.id}" />
 			</c:url>
 			

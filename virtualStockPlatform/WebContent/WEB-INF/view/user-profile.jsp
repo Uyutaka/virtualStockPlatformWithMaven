@@ -21,6 +21,12 @@
 		<div id="header">
 			<h2>User profile platform</h2>
 		</div>
+		
+		<c:url var="rank" value="/user/rank">
+			<c:param name="userId" value="${user.id}" />
+		</c:url>
+		
+		<a href='${rank}'>See the Rank Page of All Users!</a>
 
 		<div id="container">
 			<div id="content">
