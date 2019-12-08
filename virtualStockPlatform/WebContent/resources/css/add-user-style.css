@@ -31,13 +31,10 @@ input {
 table {   
 	border-style:none;
 	width:50%;
+	background-color: #868e96;
 }
-
-tr:nth-child(even) {background: #FFFFFF}
-tr:nth-child(odd) {background: #FFFFFF}
-
-tr {
-	border-style:none;
-	text-align:left;	
+	
+body{
+	background-color: #868e96;
 }
 	

@@ -4,28 +4,27 @@
 <head>
 <title>Edit user</title>
 <!-- reference our style sheet -->
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/add-user-style.css" />
 
 </head>
 <body>
+	<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">User Edit platform</font></h2>
+   		  </nav>
 	<div id="wrapper">
-		<div id="header">
-			<h2>Virtual Stock Transaction Platform</h2>
-		</div>
-	</div>
-
-
 	<div id="container">
-		<h3>Save User</h3>
 		<form:form action="signup" modelAttribute="user" method="POST">
 			<!-- need to associate this data with user id -->
 			<form:hidden path="id" />
 
 			<table>
-				<tbody>
 					<tr>
 						<td><label>First name:</label></td>
 						<td><form:input path="firstName" /></td>
@@ -48,18 +47,10 @@
 					</tr>
 					
 					<form:hidden path="balance" />
-
-					<tr>
-						<td><label></label></td>
-						<td><input type="submit" value="Save" class="save" /></td>
-					</tr>
-
-
-				</tbody>
 			</table>
-
-
+			<input type="submit" value="Save" class="save" />
 		</form:form>
+	</div>
 	</div>
 </body>
 </html>
