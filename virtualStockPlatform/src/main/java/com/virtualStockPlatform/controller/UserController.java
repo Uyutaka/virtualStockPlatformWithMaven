@@ -232,7 +232,6 @@ public class UserController {
 			property.setUserId(theId);
 			property.setNumStocks(0);
 			property.setStockName(stockName);
-			userService.saveProperty(property);
 		}
 		theModel.addAttribute("price", price);
 		theModel.addAttribute("userSymbolCheck", userSymbolCheck);
@@ -258,7 +257,6 @@ public class UserController {
 			property.setUserId(theId);
 			property.setNumStocks(0);
 			property.setStockName(stockName);
-			userService.saveProperty(property);
 		}
 		
 		// Get the Stock information and price
@@ -289,7 +287,6 @@ public class UserController {
 			property.setUserId(theId);
 			property.setNumStocks(0);
 			property.setStockName(stockName);
-			userService.saveProperty(property);
 		}
 		
 		// Get the Stock information and price
@@ -314,8 +311,27 @@ public class UserController {
 		double moneyGet = price * numberToSell;
 		String stockName = transaction.getStockName();
 		User theUser = userService.getUser(userId);
+		
+		// edge case
+		if (transaction.getNumToBuyOrSell() <= 0) {
+			// get properties
+			List<Property> properties = userService.getProperties(userId);
+			
+			// add the user to the model
+			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("properties", properties);
+			return "user-profile";
+		}
 
 		Property property = userService.getProperty(userId, stockName);
+		if (property == null) {
+			property = new Property();
+			property.setUserId(userId);
+			property.setNumStocks(0);
+			property.setStockName(stockName);
+			userService.saveProperty(property);
+		}
+		
 		int numberOwned = property.getNumStocks();
 		
 		// invalid input
@@ -345,7 +361,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/buy")
-	public String buyStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {
+	public String buyStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {	
 		double price = transaction.getPrice();
 		int numberToBuy = transaction.getNumToBuyOrSell();
 		int userId = transaction.getUserId();
@@ -353,6 +369,17 @@ public class UserController {
 		String stockName = transaction.getStockName();
 		User theUser = userService.getUser(userId);
 		double balance = theUser.getBalance();
+		
+		// edge case
+		if (transaction.getNumToBuyOrSell() <= 0) {
+			// get properties
+			List<Property> properties = userService.getProperties(userId);
+			
+			// add the user to the model
+			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("properties", properties);
+			return "user-profile";
+		}
 		
 		// invalid input
 		if (balance < moneySpent) {
@@ -364,12 +391,17 @@ public class UserController {
 		theUser.setBalance(balance - moneySpent);
 		userService.saveUser(theUser);
 		Property property = userService.getProperty(userId, stockName);
+		if (property == null) {
+			property = new Property();
+			property.setUserId(userId);
+			property.setNumStocks(0);
+			property.setStockName(stockName);
+			userService.saveProperty(property);
+		}
 
 		int numberOwned = property.getNumStocks();
-		property.setNumStocks(property.getNumStocks() + numberToBuy);
+		property.setNumStocks(numberOwned + numberToBuy);
 		userService.saveProperty(property);
-		// get users from the service
-		List<User> theUsers = userService.getUsers();
 		
 		// get properties
 		List<Property> properties = userService.getProperties(userId);
