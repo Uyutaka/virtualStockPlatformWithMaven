@@ -7,9 +7,9 @@
 * [Yutaka Urakami](https://github.com/Uyutaka)
 * [Mengyu Wu](https://github.com/Linus1949)
 
-#### The running application is [here](Project6.pdf)
+#### The running application is [here](http://www.virtualstockplatform.com/)
 
-#### The final report is [here](/)
+#### The final report is [here](Project6.pdf)
 
 #### Development environment
 - Eclipse Java EE IDE for Web Developers
