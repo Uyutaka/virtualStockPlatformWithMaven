@@ -320,7 +320,7 @@ public class UserController {
 		
 		// invalid input
 		if (numberOwned < numberToSell) {
-			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("id", userId);
 			return "Warning";
 		}
 		
@@ -356,7 +356,7 @@ public class UserController {
 		
 		// invalid input
 		if (balance < moneySpent) {
-			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("id", userId);
 			return "Warning";
 		}
 		
