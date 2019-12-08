@@ -2,12 +2,12 @@
 
 ## Semester Project for CSCI5448 (OOAD)
 
-
 #### Team Member:
-* Hao Wu
-* Yutaka Urakami
-* Mengyu Wu
+* [Hao Wu](https://github.com/wh1210)
+* [Yutaka Urakami](https://github.com/Uyutaka)
+* [Mengyu Wu](https://github.com/Linus1949)
 
+#### The running application is [here](http://www.virtualstockplatform.com/)
 #### Development environment
 - Eclipse Java EE IDE for Web Developers
 
@@ -25,3 +25,5 @@ After installing JDK, MySQL, Tomcat, and Eclipse, please execute the SQL scripts
 
 1. [**01create_user.sql**](sql-scripts/01create_user.sql)
 2. [**02create_db.sql**](sql-scripts/02create_db.sql)
+
+After that, please update the project with Maven.
