@@ -22,6 +22,7 @@
 		<div id="header">
 			<h2>User Ranks</h2>
 		</div>
+		<a href="${pageContext.request.contextPath}/user/login">Log Out</a>
 
 		<div id="container">
 			<div id="content">

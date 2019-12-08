@@ -14,6 +14,7 @@
 </head>
 <body>
 	<div class="wrapper">
+	<a href="${pageContext.request.contextPath}/user/login">Log Out</a>
 		<div class="header">
 			<h2>Selling Stock platform</h2>
 		</div>
