@@ -18,7 +18,7 @@
       <nav class="navbar navbar-light bg-dark">
       	  <h1><p class="oblique">Home</p></h1>
   		  <form class="form-inline">
-				<a class="btn btn-dark stretched-link" href="${pageContext.request.contextPath}/user/login">Sign In</a>
+				<a href="${pageContext.request.contextPath}/user/login" style="color: white">Sign In</a>
   		  </form>
      </nav>
     </nav>

@@ -17,13 +17,13 @@
 
 </head>
 <body>
-
+	<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">Selling Stock platform</font></h2>
+	      <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log Out</a>
+	    </nav>
+	    <br><br>
 	<div id="wrapper">
-		<div id="header">
-			<h2>User Ranks</h2>
-		</div>
-		<a href="${pageContext.request.contextPath}/user/login">Log Out</a>
-
 		<div id="container">
 			<div id="content">
 
