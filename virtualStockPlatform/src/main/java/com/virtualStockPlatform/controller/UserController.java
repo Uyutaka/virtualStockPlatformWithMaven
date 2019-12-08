@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.virtualStockPlatform.api.Api;
+import com.virtualStockPlatform.entity.Login;
 import com.virtualStockPlatform.entity.Pair;
 import com.virtualStockPlatform.entity.Price;
 import com.virtualStockPlatform.entity.Property;
@@ -38,6 +39,93 @@ public class UserController {
 	// need to inject user service
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("/login")
+	public String login(Model theModel) {
+		// create new objects
+		Login login = new Login();
+		
+		// add attribute
+		theModel.addAttribute("login", login);
+		return "log-in";
+	}
+	
+	@GetMapping("/profile")
+	public String showProfile(Model theModel) {
+		// get users from the service
+		List<User> theUsers = userService.getUsers();
+		// TODO temporally use the user of index 0
+		// Please change it to the current user.
+		User tmpUser = theUsers.get(1);
+		List<Property> properties = userService.getProperties(2);
+		
+		// add the user to the model
+		theModel.addAttribute("user", tmpUser);
+		theModel.addAttribute("properties", properties);
+		return "user-profile";
+	}
+	
+	@GetMapping("/profileWithID")
+	public String showProfile(Model theModel, @RequestParam("userId") int theId) {
+		// get users from the service
+		User user = userService.getUser(theId);
+		List<Property> properties = userService.getProperties(theId);
+		
+		// add the user to the model
+		theModel.addAttribute("user", user);
+		theModel.addAttribute("properties", properties);
+
+		return "user-profile";
+	}
+	
+	@GetMapping("/toSignup")
+	public String toSignup(Model theModel) {
+		// create new objects
+		User user = new User();
+		user.setBalance(100000.0);
+		
+		// add attribute
+		theModel.addAttribute("user", user);
+		return "signup-form";
+	}
+	
+	@PostMapping("/signup")
+	public String signup(Model theModel, @ModelAttribute("user") User theUser) {
+		// save the user into database
+		userService.saveUser(theUser);
+		
+		// return profile
+		int id = theUser.getId();
+		List<Property> properties = userService.getProperties(id);
+		
+		// add the user to the model
+		theModel.addAttribute("user", theUser);
+		theModel.addAttribute("properties", properties);
+		
+		return "user-profile";
+	}
+	
+	@PostMapping("/toLogin")
+	public String toLogin(Model theModel, @ModelAttribute("login") Login login) {
+		// validate the password
+		String email = login.getEmail();
+		User user = userService.getUserByEmail(email);
+		
+		// error username or password.
+		if (user == null) return "log-in";
+		if (!user.getPassword().equals(login.getPassword())) return "log-in";
+		
+		// user information is correct.
+		// return profile
+		int id = user.getId();
+		List<Property> properties = userService.getProperties(id);
+		
+		// add the user to the model
+		theModel.addAttribute("user", user);
+		theModel.addAttribute("properties", properties);
+		
+		return "user-profile";
+	}
 
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
@@ -115,6 +203,11 @@ public class UserController {
         stocks.put("AMZN", "AMZN");
         stocks.put("GOOG", "GOOG");
         stocks.put("NVDA", "NVDA");
+        stocks.put("MSFT", "MSFT");
+        stocks.put("AAPL", "AAPL");
+        stocks.put("AMD", "AMD");
+        stocks.put("TSLA", "TSLA");
+        stocks.put("DOYU", "DOYU");
 		// set user as a model attribute to pre-populate the form
 		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("stocks", stocks);
@@ -139,7 +232,6 @@ public class UserController {
 			property.setUserId(theId);
 			property.setNumStocks(0);
 			property.setStockName(stockName);
-			userService.saveProperty(property);
 		}
 		theModel.addAttribute("price", price);
 		theModel.addAttribute("userSymbolCheck", userSymbolCheck);
@@ -165,7 +257,6 @@ public class UserController {
 			property.setUserId(theId);
 			property.setNumStocks(0);
 			property.setStockName(stockName);
-			userService.saveProperty(property);
 		}
 		
 		// Get the Stock information and price
@@ -196,7 +287,6 @@ public class UserController {
 			property.setUserId(theId);
 			property.setNumStocks(0);
 			property.setStockName(stockName);
-			userService.saveProperty(property);
 		}
 		
 		// Get the Stock information and price
@@ -215,20 +305,38 @@ public class UserController {
 	
 	@PostMapping("/sell")
 	public String sellStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {
-		System.out.println(transaction);
 		double price = transaction.getPrice();
 		int numberToSell = transaction.getNumToBuyOrSell();
 		int userId = transaction.getUserId();
 		double moneyGet = price * numberToSell;
 		String stockName = transaction.getStockName();
 		User theUser = userService.getUser(userId);
+		
+		// edge case
+		if (transaction.getNumToBuyOrSell() <= 0) {
+			// get properties
+			List<Property> properties = userService.getProperties(userId);
+			
+			// add the user to the model
+			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("properties", properties);
+			return "user-profile";
+		}
 
 		Property property = userService.getProperty(userId, stockName);
+		if (property == null) {
+			property = new Property();
+			property.setUserId(userId);
+			property.setNumStocks(0);
+			property.setStockName(stockName);
+			userService.saveProperty(property);
+		}
+		
 		int numberOwned = property.getNumStocks();
 		
 		// invalid input
 		if (numberOwned < numberToSell) {
-			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("id", userId);
 			return "Warning";
 		}
 		
@@ -242,22 +350,18 @@ public class UserController {
 			property.setNumStocks(property.getNumStocks() - numberToSell);
 			userService.saveProperty(property);
 		}
-		// get users from the service
-		List<User> theUsers = userService.getUsers();
-		// TODO temporally use the user of index 0
-		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(0);
+		
+		// get properties
+		List<Property> properties = userService.getProperties(userId);
 		
 		// add the user to the model
-		theModel.addAttribute("user", tmpUser);
+		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("properties", properties);
 		return "user-profile";
 	}
 	
 	@PostMapping("/buy")
-	public String buyStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {
-		System.out.println(transaction);
+	public String buyStockView(Model theModel, @ModelAttribute("transaction") Transaction transaction) {	
 		double price = transaction.getPrice();
 		int numberToBuy = transaction.getNumToBuyOrSell();
 		int userId = transaction.getUserId();
@@ -266,9 +370,20 @@ public class UserController {
 		User theUser = userService.getUser(userId);
 		double balance = theUser.getBalance();
 		
+		// edge case
+		if (transaction.getNumToBuyOrSell() <= 0) {
+			// get properties
+			List<Property> properties = userService.getProperties(userId);
+			
+			// add the user to the model
+			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("properties", properties);
+			return "user-profile";
+		}
+		
 		// invalid input
 		if (balance < moneySpent) {
-			theModel.addAttribute("user", theUser);
+			theModel.addAttribute("id", userId);
 			return "Warning";
 		}
 		
@@ -276,25 +391,29 @@ public class UserController {
 		theUser.setBalance(balance - moneySpent);
 		userService.saveUser(theUser);
 		Property property = userService.getProperty(userId, stockName);
+		if (property == null) {
+			property = new Property();
+			property.setUserId(userId);
+			property.setNumStocks(0);
+			property.setStockName(stockName);
+			userService.saveProperty(property);
+		}
 
 		int numberOwned = property.getNumStocks();
-		property.setNumStocks(property.getNumStocks() + numberToBuy);
+		property.setNumStocks(numberOwned + numberToBuy);
 		userService.saveProperty(property);
-		// get users from the service
-		List<User> theUsers = userService.getUsers();
 		
-		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(0);
+		// get properties
+		List<Property> properties = userService.getProperties(userId);
 		
 		// add the user to the model
-		theModel.addAttribute("user", tmpUser);
+		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("properties", properties);
 		return "user-profile";
 	}
 	
 	@GetMapping("/rank")
-	public String userRanks(Model theModel) {
+	public String userRanks(Model theModel, @RequestParam("userId") int theId) {
 		// get users from the service
 		List<User> theUsers = userService.getUsers();
 
@@ -334,55 +453,15 @@ public class UserController {
 
 		// add the users to the model
 		theModel.addAttribute("allProperties", orderedUsers);
+		theModel.addAttribute("id", theId);
 		return "users-rank";
-	}
-	
-	
-	
-	@GetMapping("/test")
-	public String test() {
-		Api api = new Api();
-		String companySymbol = "MSFT";
-		double price = api.getPrice(companySymbol);
-		System.out.print("Open Price " + price);
-		return "test-json";
-	}
-
-	@GetMapping("/profile")
-	public String showProfile(Model theModel) {
-		// get users from the service
-		List<User> theUsers = userService.getUsers();
-		// TODO temporally use the user of index 0
-		// Please change it to the current user.
-		User tmpUser = theUsers.get(0);
-		List<Property> properties = userService.getProperties(0);
-		
-		// add the user to the model
-		theModel.addAttribute("user", tmpUser);
-		theModel.addAttribute("properties", properties);
-		return "user-profile";
-	}
-
-	// Test get list
-	@GetMapping("/test1")
-	public String listPropertiess(Model theModel) {
-		List<Property> res = userService.getProperties(1);
-		return "test-json";
-	}
-
-	// Test get list
-	@GetMapping("/test2")
-	public String listSumOfStocks(Model theModel) {
-		List<Property> res = userService.getProperties(1);
-		userService.getSumOfStocks(res);
-		return "test-json";
 	}
 	
 	private Stock getStockByName(String name) {
 		String text = "";
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(
-				String.format("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=%s&interval=1min&apikey=ACPN4KEH4052XAQ6", name),
+				String.format("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=%s&interval=1min&apikey=PDYIZGJCK1M1NQIN", name),
 				String.class);
 
 		if (HttpStatus.OK == response.getStatusCode()) {
@@ -396,7 +475,7 @@ public class UserController {
 			// JSON string to Java object
 			stock = mapper.readValue(text, Stock.class);
 		} catch (IOException e) {
-			System.out.println("Test failed.");
+			System.out.println("Failed.");
 			e.printStackTrace();
 		}
 		return stock;

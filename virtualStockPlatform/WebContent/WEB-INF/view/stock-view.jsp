@@ -17,7 +17,11 @@
 	<nav class="navigation-header"></nav>
 	      <nav class="navbar navbar-light bg-dark">
 	      <h2><font color="white">Stock view platform</font></h2>
-	    </a>
+	     <c:url var="profileWithId" value="/user/profileWithID">
+			<c:param name="userId" value="${userSymbolCheck.userId}" />
+		</c:url>
+		<a href="${profileWithId}" style="color: white">Back to Profile</a>
+	    <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log out</a>
 	    </nav>
 		<br><br><br>
 		<div id="container">

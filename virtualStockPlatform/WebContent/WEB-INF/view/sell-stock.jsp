@@ -13,10 +13,17 @@
 	href="${pageContext.request.contextPath}/resources/css/sell-stock.css"/>
 </head>
 <body>
+	<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">Selling Stock platform</font></h2>
+	      <c:url var="profileWithId" value="/user/profileWithID">
+			<c:param name="userId" value="${user.id}" />
+		</c:url>
+		<a href="${profileWithId}" style="color: white">Back to Profile</a>
+	      <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log out</a>
+	    </nav>
+	    <br><br>
 	<div class="wrapper">
-		<div class="header">
-			<h2>Selling Stock platform</h2>
-		</div>
 		<div id="container">
 			<div id="content">
 			<form:form action="sell" modelAttribute="transaction" method="POST">

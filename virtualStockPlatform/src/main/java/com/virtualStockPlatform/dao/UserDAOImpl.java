@@ -197,5 +197,19 @@ public class UserDAOImpl implements UserDAO{
 		theQuery.setParameter("Id", id);
 		theQuery.executeUpdate();
 	}
+
+
+	@Override
+	public User getUserByEmail(String email) {
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// create a query
+		Query<User> theQuery = currentSession.createQuery("from User where email=:target", User.class);
+		theQuery.setParameter("target", email);
+		// execute query and get result list
+		User user = theQuery.uniqueResult();
+		return user;
+	}
 	
 }

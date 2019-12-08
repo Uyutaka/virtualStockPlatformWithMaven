@@ -6,7 +6,7 @@
     margin-right: auto;
 	width: 400px;
 	background-color: rgba(0,0,0,0.5);
-	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+	    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 2s; /* Firefox < 16 */
         -ms-animation: fadein 2s; /* Internet Explorer */
          -o-animation: fadein 2s; /* Opera < 12.1 */
@@ -44,18 +44,4 @@
 
 .sub-header{
 	color: white;
-}
-
-input {
-	border-radius: 4px;
-}
-
-a:hover{
-	color: grey;
-}
-
-.footer{
-	position: absolute;
-	width: 100%;
-	bottom: 0;
 }
