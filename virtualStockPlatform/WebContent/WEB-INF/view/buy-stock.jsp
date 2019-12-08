@@ -12,11 +12,13 @@
 	href="${pageContext.request.contextPath}/resources/css/buy-stock.css"/>
 </head>
 <body>
+	<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">Buying Stock platform</font></h2>
+	      <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log Out</a>
+	    </nav>
+	    <br><br>
 	<div class="wrapper">
-		<div class="header">
-			<h2>Buying Stock platform</h2>
-		</div>
-		<a href="${pageContext.request.contextPath}/user/login">Log Out</a>
 		<div id="container">
 			<div id="content">
 			<form:form action="buy" modelAttribute="transaction" method="POST">

@@ -13,11 +13,13 @@
 	href="${pageContext.request.contextPath}/resources/css/sell-stock.css"/>
 </head>
 <body>
+	<nav class="navigation-header"></nav>
+	      <nav class="navbar navbar-light bg-dark">
+	      <h2><font color="white">Selling Stock platform</font></h2>
+	      <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log Out</a>
+	    </nav>
+	    <br><br>
 	<div class="wrapper">
-	<a href="${pageContext.request.contextPath}/user/login">Log Out</a>
-		<div class="header">
-			<h2>Selling Stock platform</h2>
-		</div>
 		<div id="container">
 			<div id="content">
 			<form:form action="sell" modelAttribute="transaction" method="POST">

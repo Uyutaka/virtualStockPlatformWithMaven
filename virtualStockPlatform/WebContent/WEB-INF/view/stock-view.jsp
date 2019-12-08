@@ -17,7 +17,7 @@
 	<nav class="navigation-header"></nav>
 	      <nav class="navbar navbar-light bg-dark">
 	      <h2><font color="white">Stock view platform</font></h2>
-	    <a href="${pageContext.request.contextPath}/user/login">Log Out</a>
+	    <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log Out</a>
 	    </nav>
 		<br><br><br>
 		<div id="container">
