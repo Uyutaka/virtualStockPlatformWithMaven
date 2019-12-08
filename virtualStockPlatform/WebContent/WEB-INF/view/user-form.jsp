@@ -20,10 +20,9 @@
 
 	<div id="container">
 		<h3>Save User</h3>
-		<form:form action="saveUser" modelAttribute="user" method="POST">
+		<form:form action="signup" modelAttribute="user" method="POST">
 			<!-- need to associate this data with user id -->
 			<form:hidden path="id" />
-			<form:hidden path="password" />
 
 			<table>
 				<tbody>
@@ -42,8 +41,13 @@
 						<td><form:input path="email" /></td>
 					</tr>
 					
+					
+					<tr>
+						<td><label>Password:</label></td>
+						<td><form:input path="password" /></td>
+					</tr>
+					
 					<form:hidden path="balance" />
-
 
 					<tr>
 						<td><label></label></td>
@@ -56,15 +60,6 @@
 
 
 		</form:form>
-
-		<div style=""></div>
-		<p>
-			<c:url var="profileWithId" value="/user/profile">
-				<c:param name="userId" value="${tempUser.id}" />
-			</c:url>
-			
-			<a href="${profile}">Back to profile</a>
-		</p>
 	</div>
 </body>
 </html>
