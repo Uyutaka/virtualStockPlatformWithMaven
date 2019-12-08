@@ -16,6 +16,7 @@
 		<div class="header">
 			<h2>Buying Stock platform</h2>
 		</div>
+		<a href="${pageContext.request.contextPath}/user/login">Log Out</a>
 		<div id="container">
 			<div id="content">
 			<form:form action="buy" modelAttribute="transaction" method="POST">

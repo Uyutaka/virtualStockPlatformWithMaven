@@ -24,6 +24,8 @@
 	      <nav class="navbar navbar-light bg-dark">
 	      <h2><font color="white">User Profile platform</font></h2>
 	      <a  href='${rank}' style="color: white">See the Rank Page of All Users!</a>
+	      <br>
+	      <a href="${pageContext.request.contextPath}/user/login">Log Out</a>
 	    </nav>
 	    <br><br>
 	<div id="wrapper">
