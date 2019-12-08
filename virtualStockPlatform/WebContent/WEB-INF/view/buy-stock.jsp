@@ -15,7 +15,11 @@
 	<nav class="navigation-header"></nav>
 	      <nav class="navbar navbar-light bg-dark">
 	      <h2><font color="white">Buying Stock platform</font></h2>
-	      <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log Out</a>
+	      <c:url var="profileWithId" value="/user/profileWithID">
+			<c:param name="userId" value="${user.id}" />
+		</c:url>
+		<a href="${profileWithId}" style="color: white">Back to Profile</a>
+	      <a href="${pageContext.request.contextPath}/user/login" style="color: white">Log out</a>
 	    </nav>
 	    <br><br>
 	<div class="wrapper">
