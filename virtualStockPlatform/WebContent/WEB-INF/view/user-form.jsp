@@ -4,8 +4,13 @@
 <head>
 <title>Edit user</title>
 <!-- reference our style sheet -->
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 <link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	href="${pageContext.request.contextPath}/resources/css/user-form.css" />
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/add-user-style.css" />
 
@@ -25,7 +30,7 @@
 			<form:hidden path="id" />
 			<form:hidden path="password" />
 
-			<table>
+			<table class=table>
 				<tbody>
 					<tr>
 						<td><label>First name:</label></td>
@@ -43,16 +48,9 @@
 					</tr>
 					
 					<form:hidden path="balance" />
-
-
-					<tr>
-						<td><label></label></td>
-						<td><input type="submit" value="Save" class="save" /></td>
-					</tr>
-
-
 				</tbody>
 			</table>
+			<td><input type="submit" value="Save" class="save" /></td>
 
 
 		</form:form>
