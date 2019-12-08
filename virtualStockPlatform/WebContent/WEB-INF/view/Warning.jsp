@@ -27,7 +27,11 @@
 								<h1 class="display-4">Invalid Operation Warning</h1>
 								<p style="font-family:courier;"><u>Your operation is invalid due 
 									to your operation already exceed the balance/number of stocks you have! </u></p>
-					        	<button type="button" class="btn-outline-danger btn-sm" onclick="window.location.href='profile'">Back to profile</button>
+								<c:url var="profileWithId" value="/user/profileWithID">
+									<c:param name="userId" value="${id}" />
+								</c:url>
+								<input type="button" value="Back to profile"
+									onclick="window.location.href='${profileWithId}'" class="btn-outline-danger btn-sm" />
 					      </div>
 					 </div>
 				</div>
